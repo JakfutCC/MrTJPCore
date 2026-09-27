@@ -6,6 +6,7 @@
 package mrtjp.core.world
 
 import codechicken.lib.vec.BlockCoord
+import cpw.mods.fml.common.Loader
 import mrtjp.core.math.{PerlinNoiseGenerator, MathLib}
 import net.minecraft.block.{BlockGrass, BlockGlass, Block, IGrowable}
 import net.minecraft.entity.item.EntityItem
@@ -31,7 +32,7 @@ object WorldLib {
       z: Int,
       clazz: Class[T]
   ): T = {
-    if (y < 0) null.asInstanceOf[T]
+    if (y < 0 && !Loader.isModLoaded("cubicchunks")) null.asInstanceOf[T]
     else {
       val tile = w.getTileEntity(x, y, z)
       if (!clazz.isInstance(tile)) null.asInstanceOf[T]
